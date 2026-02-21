@@ -1015,22 +1015,32 @@ export default function App() {
                                     Remove Image
                                   </button>
                                 ) : null}
-                                <button
-                                  onClick={() => {
-                                    const next = window.prompt("Sort order (integer)", String(service.sortOrder));
-                                    if (next === null) return;
-                                    const parsed = Number(next);
-                                    if (!Number.isInteger(parsed) || parsed < 0) return;
-                                    void updateService(service, { sortOrder: parsed });
-                                  }}
-                                  disabled={actionId === service.id}
-                                >
-                                  Set Order
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
+                              <button
+                                onClick={() => {
+                                  const next = window.prompt("Sort order (integer)", String(service.sortOrder));
+                                  if (next === null) return;
+                                  const parsed = Number(next);
+                                  if (!Number.isInteger(parsed) || parsed < 0) return;
+                                  void updateService(service, { sortOrder: parsed });
+                                }}
+                                disabled={actionId === service.id}
+                              >
+                                Set Order
+                              </button>
+                              <button
+                                onClick={() => {
+                                  const ok = window.confirm(`Delete service "${service.title}" from public view?`);
+                                  if (!ok) return;
+                                  void updateService(service, { isActive: false, imageUrl: null });
+                                }}
+                                disabled={actionId === service.id}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
                       </tbody>
                     </table>
                   </section>
